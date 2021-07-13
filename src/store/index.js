@@ -16,6 +16,7 @@ export default new Vuex.Store({
         coApplicantName: "",
         companyName: "",
         date: new Date(),
+        email: "",
         houseToPaintAddress: "",
         houseToPaintCity: "",
         houseToPaintState: "",
@@ -25,7 +26,8 @@ export default new Vuex.Store({
         personalAddress: "",
         personalCity: "",
         personalState: "",
-        personalZipcode: ""
+        personalZipcode: "",
+        phone: ""
       },
       totalPayment: {
 
@@ -34,85 +36,97 @@ export default new Vuex.Store({
   },
   getters: {
     getCoApplicantName(state) {
-      return state.coApplicantName;
+      return state.customerEstimate.personalInformation.coApplicantName;
     },
     getCompanyName(state) {
-      return state.companyName;
+      return state.customerEstimate.personalInformation.companyName;
     },
     getDate(state) {
-      return state.date;
+      return state.customerEstimate.personalInformation.date;
+    },
+    getEmail(state) {
+      return state.customerEstimate.personalInformation.email;
     },
     getHouseToPaintAddress(state) {
-      return state.houseToPaintAddress;
+      return state.customerEstimate.personalInformation.houseToPaintAddress;
     },
     getHouseToPaintCity(state) {
-      return state.houseToPaintCity;
+      return state.customerEstimate.personalInformation.houseToPaintCity;
     },
     getHouseToPaintState(state) {
-      return state.houseToPaintState;
+      return state.customerEstimate.personalInformation.houseToPaintState;
     },
     getHouseToPaintZipcode(state) {
-      return state.houseToPaintZipcode;
+      return state.customerEstimate.personalInformation.houseToPaintZipcode;
     },
     getIsHouseToPaintSameAsPersonal(state) {
-      return state.isHouseToPaintSameAsPersonal;
+      return state.customerEstimate.personalInformation.isHouseToPaintSameAsPersonal;
     },
     getName(state) {
-      return state.name;
+      return state.customerEstimate.personalInformation.name;
     },
     getPersonalAddress(state) {
-      return state.personalAddress;
+      return state.customerEstimate.personalInformation.personalAddress;
     },
     getPersonalCity(state) {
-      return state.personalCity;
+      return state.customerEstimate.personalInformation.personalCity;
     },
     getPersonalState(state) {
-      return state.personalState;
+      return state.customerEstimate.personalInformation.personalState;
     },
     getPersonalZipcode(state) {
-      return state.personalZipcode;
+      return state.customerEstimate.personalInformation.personalZipcode;
+    },
+    getPhone(state) {
+      return state.customerEstimate.personalInformation.phone;
     }
   },
   mutations: {
     setCoApplicantName(state, val) {
-      state.coApplicantName = val;
+      state.customerEstimate.personalInformation.coApplicantName = val;
     },
     setCompanyName(state, val) {
-      state.companyName = val;
+      state.customerEstimate.personalInformation.companyName = val;
     },
     setDate(state, val) {
-      state.date = val;
+      state.customerEstimate.personalInformation.date = val;
+    },
+    setEmail(state, val) {
+      state.customerEstimate.personalInformation.email = val;
     },
     setHouseToPaintAddress(state, val) {
-      state.houseToPaintAddress = val;
+      state.customerEstimate.personalInformation.houseToPaintAddress = val;
     },
     setHouseToPaintCity(state, val) {
-      state.houseToPaintCity = val;
+      state.customerEstimate.personalInformation.houseToPaintCity = val;
     },
     setHouseToPaintState(state, val) {
-      state.houseToPaintState = val;
+      state.customerEstimate.personalInformation.houseToPaintState = val;
     },
     setHouseToPaintZipcode(state, val) {
-      state.houseToPaintZipcode = val;
+      state.customerEstimate.personalInformation.houseToPaintZipcode = val;
     },
     setIsHouseToPaintSameAsPersonal(state, val) {
-      state.isHouseToPaintSameAsPersonal = val;
+      state.customerEstimate.personalInformation.isHouseToPaintSameAsPersonal = val;
     },
     setName(state, val) {
-      state.name = val;
+      state.customerEstimate.personalInformation.name = val;
     },
     setPersonalAddress(state, val) {
-      state.personalAddress = val;
+      state.customerEstimate.personalInformation.personalAddress = val;
     },
     setPersonalCity(state, val) {
-      state.personalCity = val;
+      state.customerEstimate.personalInformation.personalCity = val;
     },
     setPersonalState(state, val) {
-      state.personalState = val;
+      state.customerEstimate.personalInformation.personalState = val;
     },
     setPersonalZipcode(state, val) {
-      state.personalZipcode = val;
-    }
+      state.customerEstimate.personalInformation.personalZipcode = val;
+    },
+    setPhone(state, val) {
+      state.customerEstimate.personalInformation.phone = val;
+    },
   },
   actions: {
   },

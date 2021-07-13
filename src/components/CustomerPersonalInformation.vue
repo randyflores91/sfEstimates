@@ -3,13 +3,97 @@
     <v-container>
       <v-row>
         <v-col>
-          <v-form ref="form" class="mx-5">
+          <v-form ref="form" class="mx-7">
+            <div class="text-h5 mt-5 mb-2">Name</div>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  v-model="name"
+                  :rules="nameRules"
+                  label="Full Name"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="coApplicantName"
+                  label="Co-Applicant's Full Name (Optional)"
+                ></v-text-field>
+                <v-text-field
+                  v-model="companyName"
+                  label="Company Name (Optional)"
+                ></v-text-field>
+              </v-col>
+              <v-col>
+                <v-text-field
+                  v-model="companyName"
+                  label="Phone Number"
+                ></v-text-field
+                ><v-text-field
+                  v-model="companyName"
+                  label="Email"
+                ></v-text-field
+              ></v-col>
+            </v-row>
+            <div class="text-h5 mt-7">House Address</div>
+            <div class="text-subtitle-2 mt-1 mb-2">
+              Address where the painting job will be done.
+            </div>
             <v-text-field
-              v-model="name"
-              :rules="nameRules"
-              label="Full Name"
+              v-model="houseToPaintAddress"
+              label="Address"
               required
             ></v-text-field>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  v-model="houseToPaintCity"
+                  label="City"
+                ></v-text-field>
+              </v-col>
+              <v-col>
+                <v-text-field
+                  v-model="houseToPaintState"
+                  label="State"
+                ></v-text-field
+              ></v-col>
+              <v-col
+                ><v-text-field
+                  v-model="houseToPaintZipcode"
+                  label="Zipcode"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-checkbox
+              v-model="isHouseToPaintSameAsPersonal"
+              label="Same as Billing Address"
+            ></v-checkbox>
+            <div v-if="!isHouseToPaintSameAsPersonal">
+              <div class="text-h5 mt-7 mb-2">House Address</div>
+              <v-text-field
+                v-model="personalAddress"
+                label="Address"
+                required
+              ></v-text-field>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    v-model="personalCity"
+                    label="City"
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    v-model="personalState"
+                    label="State"
+                  ></v-text-field
+                ></v-col>
+                <v-col
+                  ><v-text-field
+                    v-model="personalZipcode"
+                    label="Zipcode"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </div>
           </v-form>
         </v-col>
       </v-row>
@@ -33,6 +117,7 @@ export default {
       getCoApplicantName: "getCoApplicantName",
       getCompanyName: "getCompanyName",
       getDate: "getDate",
+      getEmail: "getEmail",
       getHouseToPaintAddress: "getHouseToPaintAddress",
       getHouseToPaintCity: "getHouseToPaintCity",
       getHouseToPaintState: "getHouseToPaintState",
@@ -43,13 +128,14 @@ export default {
       getPersonalCity: "getPersonalCity",
       getPersonalState: "getPersonalState",
       getPersonalZipcode: "getPersonalZipcode",
+      getPhone: "getPhone",
     }),
     coApplicantName: {
       get() {
         return this.getCoApplicantName;
       },
       set(val) {
-        this.$store.commit(this.setCoApplicantName(val));
+        this.setCoApplicantName(val);
       },
     },
     companyName: {
@@ -57,7 +143,7 @@ export default {
         return this.getCompanyName;
       },
       set(val) {
-        this.$store.commit(this.setCompanyName(val));
+        this.setCompanyName(val);
       },
     },
     date: {
@@ -65,7 +151,15 @@ export default {
         return this.getDate;
       },
       set(val) {
-        this.$store.commit(this.setDate(val));
+        this.setDate(val);
+      },
+    },
+    email: {
+      get() {
+        return this.getEmail;
+      },
+      set(val) {
+        this.setEmail(val);
       },
     },
     houseToPaintAddress: {
@@ -73,7 +167,7 @@ export default {
         return this.getHouseToPaintAddress;
       },
       set(val) {
-        this.$store.commit(this.setHouseToPaintAddress(val));
+        this.setHouseToPaintAddress(val);
       },
     },
     houseToPaintCity: {
@@ -81,7 +175,7 @@ export default {
         return this.getHouseToPaintCity;
       },
       set(val) {
-        this.$store.commit(this.setHouseToPaintCity(val));
+        this.setHouseToPaintCity(val);
       },
     },
     houseToPaintState: {
@@ -89,7 +183,7 @@ export default {
         return this.getHouseToPaintState;
       },
       set(val) {
-        this.$store.commit(this.setHouseToPaintState(val));
+        this.setHouseToPaintState(val);
       },
     },
     houseToPaintZipcode: {
@@ -97,7 +191,7 @@ export default {
         return this.getHouseToPaintZipcode;
       },
       set(val) {
-        this.$store.commit(this.setHouseToPaintZipcode(val));
+        this.setHouseToPaintZipcode(val);
       },
     },
     isHouseToPaintSameAsPersonal: {
@@ -105,7 +199,7 @@ export default {
         return this.getIsHouseToPaintSameAsPersonal;
       },
       set(val) {
-        this.$store.commit(this.setIsHouseToPaintSameAsPersonal(val));
+        this.setIsHouseToPaintSameAsPersonal(val);
       },
     },
     name: {
@@ -113,7 +207,6 @@ export default {
         return this.getName;
       },
       set(val) {
-        console.log(val);
         this.setName(val);
       },
     },
@@ -122,7 +215,7 @@ export default {
         return this.getPersonalAddress;
       },
       set(val) {
-        this.$store.commit(this.setPersonalAddress(val));
+        this.setPersonalAddress(val);
       },
     },
     personalCity: {
@@ -130,7 +223,7 @@ export default {
         return this.getPersonalCity;
       },
       set(val) {
-        this.$store.commit(this.setPersonalCity(val));
+        this.setPersonalCity(val);
       },
     },
     personalState: {
@@ -138,7 +231,7 @@ export default {
         return this.getPersonalState;
       },
       set(val) {
-        this.$store.commit(this.setPersonalState(val));
+        this.setPersonalState(val);
       },
     },
     personalZipcode: {
@@ -146,7 +239,15 @@ export default {
         return this.getPersonalZipcode;
       },
       set(val) {
-        this.$store.commit(this.setPersonalZipcode(val));
+        this.setPersonalZipcode(val);
+      },
+    },
+    phone: {
+      get() {
+        return this.getPhone;
+      },
+      set(val) {
+        this.setPhone(val);
       },
     },
   },
@@ -155,6 +256,7 @@ export default {
       setCoApplicantName: "setCoApplicantName",
       setCompanyName: "setCompanyName",
       setDate: "setDate",
+      setEmail: "setEmail",
       setHouseToPaintAddress: "setHouseToPaintAddress",
       setHouseToPaintCity: "setHouseToPaintCity",
       setHouseToPaintState: "setHouseToPaintState",
@@ -165,6 +267,7 @@ export default {
       setPersonalCity: "setPersonalCity",
       setPersonalState: "setPersonalState",
       setPersonalZipcode: "setPersonalZipcode",
+      setPhone: "setPhone",
     }),
   },
 };
