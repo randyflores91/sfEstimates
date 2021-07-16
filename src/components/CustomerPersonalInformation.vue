@@ -24,13 +24,10 @@
               </v-col>
               <v-col>
                 <v-text-field
-                  v-model="companyName"
+                  v-model="phone"
                   label="Phone Number"
                 ></v-text-field
-                ><v-text-field
-                  v-model="companyName"
-                  label="Email"
-                ></v-text-field
+                ><v-text-field v-model="email" label="Email"></v-text-field
               ></v-col>
             </v-row>
             <div class="text-h5 mt-7">House Address</div>
@@ -50,10 +47,13 @@
                 ></v-text-field>
               </v-col>
               <v-col>
-                <v-text-field
-                  v-model="houseToPaintState"
+                <v-select
+                  v-model="personalState"
+                  :items="states"
+                  item-text="key"
+                  item-value="value"
                   label="State"
-                ></v-text-field
+                ></v-select
               ></v-col>
               <v-col
                 ><v-text-field
@@ -81,10 +81,13 @@
                   ></v-text-field>
                 </v-col>
                 <v-col>
-                  <v-text-field
+                  <v-select
                     v-model="personalState"
+                    :items="states"
+                    item-text="key"
+                    item-value="value"
                     label="State"
-                  ></v-text-field
+                  ></v-select
                 ></v-col>
                 <v-col
                   ><v-text-field
@@ -103,6 +106,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
+import { STATES } from "../constants/states";
 
 export default {
   data: () => ({
@@ -110,6 +114,7 @@ export default {
       (name) => !!name || "Name is required",
       (v) => (v && v.length >= 3) || "Name must be more than 3 characters",
     ],
+    states: STATES,
   }),
   components: {},
   computed: {
