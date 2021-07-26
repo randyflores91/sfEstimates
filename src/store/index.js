@@ -22,7 +22,7 @@ export default new Vuex.Store({
         houseToPaintState: "MD",
         houseToPaintZipcode: "",
         isHouseToPaintSameAsPersonal: false,
-        name: "",
+        name: "Randy",
         personalAddress: "",
         personalCity: "",
         personalState: "MD",
