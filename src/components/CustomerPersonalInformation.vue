@@ -108,6 +108,13 @@
                 </v-col>
               </v-row>
             </div>
+            <v-row class="my-8">
+              <v-col align="right">
+                <v-btn color="red darken-4" class="nextButton" dark large>
+                  Next Step</v-btn
+                >
+              </v-col>
+            </v-row>
           </v-form>
         </v-col>
       </v-row>
@@ -388,3 +395,9 @@ export default {
   // },
 };
 </script>
+
+<style scoped>
+.nextButton {
+  width: 30%;
+}
+</style>

@@ -5,6 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    sectionActiveBool: {
+      isAdditionalWorkActive: false,
+      isExteriorActive: false,
+      isInteriorActive: false,
+      isPaymentActive: false,
+      isPersonalInformationActive: true,
+      isWorkOptionsActive: false,
+    },
     customerEstimate: {
       exterior: {
 
@@ -22,7 +30,7 @@ export default new Vuex.Store({
         houseToPaintState: "MD",
         houseToPaintZipcode: "",
         isHouseToPaintSameAsPersonal: false,
-        name: "Randy",
+        name: "",
         personalAddress: "",
         personalCity: "",
         personalState: "MD",
@@ -35,6 +43,27 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    // Sections Getters
+    getIsAdditionalWorkActive(state) {
+      return state.sectionActiveBool.isAdditionalWorkActive;
+    },
+    getIsExteriorActive(state) {
+      return state.sectionActiveBool.isExteriorActive;
+    },
+    getIsInteriorActive(state) {
+      return state.sectionActiveBool.isInteriorActive;
+    },
+    getIsPaymentActive(state) {
+      return state.sectionActiveBool.isPaymentActive;
+    },
+    getIsPersonalInformationActive(state) {
+      return state.sectionActiveBool.isPersonalInformationActive;
+    },
+    getIsWorkOptionsActive(state) {
+      return state.sectionActiveBool.isWorkOptionsActive;
+    },
+
+    // Customer Estimate Getters
     getCoApplicantName(state) {
       return state.customerEstimate.personalInformation.coApplicantName;
     },
@@ -82,6 +111,35 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    // Sections Setters
+    toggleAllSectionsOff(state) {
+      state.sectionActiveBool.isAdditionalWorkActive = false;
+      state.sectionActiveBool.isExteriorActive = false;
+      state.sectionActiveBool.isInteriorActive = false;
+      state.sectionActiveBool.isPaymentActive = false;
+      state.sectionActiveBool.isPersonalInformationActive = false;
+      state.sectionActiveBool.isWorkOptionsActive = false;
+    },
+    toggleIsAdditionalWorkActiveOn(state) {
+      state.sectionActiveBool.isAdditionalWorkActive = true;
+    },
+    toggleIsExteriorActiveOn(state) {
+      state.sectionActiveBool.isExteriorActive = true;
+    },
+    toggleIsInteriorActiveOn(state) {
+      state.sectionActiveBool.isInteriorActive = true;
+    },
+    toggleIsPaymentActiveOn(state) {
+      state.sectionActiveBool.isPaymentActive = true;
+    },
+    toggleIsPersonalInformationActiveOn(state) {
+      state.sectionActiveBool.isPersonalInformationActive = true;
+    },
+    toggleIsWorkOptionsActiveOn(state) {
+      state.sectionActiveBool.isWorkOptionsActive = true;
+    },
+
+    // Customer Estimate Setters
     setCoApplicantName(state, val) {
       state.customerEstimate.personalInformation.coApplicantName = val;
     },
@@ -129,6 +187,30 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    toggleIsAdditionalWorkActiveOn({commit}) {
+      commit('toggleAllSectionsOff');
+      commit('toggleIsAdditionalWorkActiveOn');
+    },
+    toggleIsExteriorActiveOn({commit}) {
+      commit('toggleAllSectionsOff');
+      commit('toggleIsExteriorActiveOn');
+    },
+    toggleIsInteriorActiveOn({commit}) {
+      commit('toggleAllSectionsOff');
+      commit('toggleIsInteriorActiveOn');
+    },
+    toggleIsPaymentActiveOn({commit}) {
+      commit('toggleAllSectionsOff');
+      commit('toggleIsPaymentActiveOn');
+    },
+    toggleIsPersonalInformationActiveOn({commit}) {
+      commit('toggleAllSectionsOff');
+      commit('toggleIsPersonalInformationActiveOn');
+    },
+    toggleIsWorkOptionsActiveOn({commit}) {
+      commit('toggleAllSectionsOff');
+      commit('toggleIsWorkOptionsActiveOn');
+    },
   },
   modules: {
   }

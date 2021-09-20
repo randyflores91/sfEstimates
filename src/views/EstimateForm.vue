@@ -3,11 +3,16 @@
     <v-container>
       <v-row>
         <v-col cols="2">
-          <customer-estimate-steps/>
+          <customer-estimate-steps />
         </v-col>
 
         <v-col>
-          <customer-personal-information/>
+          <template v-if="isPersonalInformationActive">
+            <customer-personal-information />
+          </template>
+          <template v-if="isWorkOptionsActive">
+            <work-options />
+          </template>
         </v-col>
       </v-row>
     </v-container>
@@ -17,13 +22,25 @@
 <script>
 import CustomerEstimateSteps from "../components/CustomerEstimateSteps.vue";
 import CustomerPersonalInformation from "../components/CustomerPersonalInformation.vue";
+import WorkOptions from "../components/WorkOptions.vue";
+import { mapGetters } from "vuex";
 
 export default {
-  data: () => ({
-  }),
+  data: () => ({}),
   components: {
     CustomerEstimateSteps,
-    CustomerPersonalInformation
-  }
+    CustomerPersonalInformation,
+    WorkOptions,
+  },
+  computed: {
+    ...mapGetters({
+      isAdditionalWorkActive: "getIsAdditionalWorkActive",
+      isExteriorActive: "getIsExteriorActive",
+      isInteriorActive: "getIsInteriorActive",
+      isPaymentActive: "getIsPaymentActive",
+      isPersonalInformationActive: "getIsPersonalInformationActive",
+      isWorkOptionsActive: "getIsWorkOptionsActive",
+    }),
+  },
 };
 </script>
