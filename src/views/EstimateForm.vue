@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isAdditionalWorkActive: "getIsAdditionalWorkActive",
+      isCustomWorkActive: "getIsCustomWorkActive",
       isExteriorActive: "getIsExteriorActive",
       isInteriorActive: "getIsInteriorActive",
       isPaymentActive: "getIsPaymentActive",

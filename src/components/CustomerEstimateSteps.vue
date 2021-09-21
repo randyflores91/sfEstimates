@@ -10,7 +10,18 @@
           <v-list-item-title> Personal Information </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item
+        v-if="!(hasExterior() || hasInterior() || hasCustomWork())"
+        link
+        color="grey lighten-4"
+        @click="toggleIsWorkOptionsActiveOn()"
+      >
+        <v-list-item-content>
+          <v-list-item-title> Work Description </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-group
+        v-else
         :value="true"
         color="grey lighten-4"
         @click="toggleIsWorkOptionsActiveOn()"
@@ -20,6 +31,7 @@
         </template>
 
         <v-list-item
+          v-if="hasExterior()"
           link
           class="pl-9"
           color="grey lighten-4"
@@ -30,6 +42,7 @@
           </v-list-item-content>
         </v-list-item>
         <v-list-item
+          v-if="hasInterior()"
           link
           class="pl-9"
           color="grey lighten-4"
@@ -40,13 +53,14 @@
           </v-list-item-content>
         </v-list-item>
         <v-list-item
+          v-if="hasCustomWork()"
           link
           class="pl-9"
           color="grey lighten-4"
-          @click="toggleIsAdditionalWorkActiveOn()"
+          @click="toggleIsCustomWorkActiveOn()"
         >
           <v-list-item-content>
-            <v-list-item-title> Additional Work </v-list-item-title>
+            <v-list-item-title> Custom Work </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
@@ -64,11 +78,16 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   methods: {
+    ...mapGetters({
+      hasCustomWork: "getHasCustomWork",
+      hasExterior: "getHasExterior",
+      hasInterior: "getHasInterior",
+    }),
     ...mapActions({
-      toggleIsAdditionalWorkActiveOn: "toggleIsAdditionalWorkActiveOn",
+      toggleIsCustomWorkActiveOn: "toggleIsCustomWorkActiveOn",
       toggleIsExteriorActiveOn: "toggleIsExteriorActiveOn",
       toggleIsInteriorActiveOn: "toggleIsInteriorActiveOn",
       toggleIsPaymentActiveOn: "toggleIsPaymentActiveOn",

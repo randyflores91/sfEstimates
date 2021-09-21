@@ -110,7 +110,13 @@
             </div>
             <v-row class="my-8">
               <v-col align="right">
-                <v-btn color="red darken-4" class="nextButton" dark large>
+                <v-btn
+                  color="red darken-4"
+                  class="nextButton"
+                  dark
+                  large
+                  @click="toggleIsWorkOptionsActiveOn"
+                >
                   Next Step</v-btn
                 >
               </v-col>
@@ -123,7 +129,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import { STATES } from "../constants/states";
 import {
   required,
@@ -347,6 +353,9 @@ export default {
       setPersonalState: "setPersonalState",
       setPersonalZipcode: "setPersonalZipcode",
       setPhone: "setPhone",
+    }),
+    ...mapActions({
+      toggleIsWorkOptionsActiveOn: "toggleIsWorkOptionsActiveOn",
     }),
   },
   validations: {

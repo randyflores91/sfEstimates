@@ -5,20 +5,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    sectionActiveBool: {
-      isAdditionalWorkActive: false,
-      isExteriorActive: false,
-      isInteriorActive: false,
-      isPaymentActive: false,
-      isPersonalInformationActive: true,
-      isWorkOptionsActive: false,
-    },
     customerEstimate: {
+      customWork: {
+        workSections: [],
+        customWorkPayment: 0,
+      },
       exterior: {
-
+        workSections: [],
+        exteriorPayment: 0,
       },
       interior: {
-
+        workSections: [],
+        interiorPayment: 0,
       },
       personalInformation: {
         coApplicantName: "",
@@ -40,30 +38,38 @@ export default new Vuex.Store({
       totalPayment: {
 
       }
+    },
+    sectionActiveBool: {
+      isCustomWorkActive: false,
+      isExteriorActive: false,
+      isInteriorActive: false,
+      isPaymentActive: false,
+      isPersonalInformationActive: true,
+      isWorkOptionsActive: false,
+    },
+    workOptions: {
+      hasCustomWork: false,
+      hasExterior: false,
+      hasInterior: false
     }
   },
   getters: {
-    // Sections Getters
-    getIsAdditionalWorkActive(state) {
-      return state.sectionActiveBool.isAdditionalWorkActive;
+    // Custom Work Getters
+    getCustomWorkSection: (state) => (id) => {
+      return state.customerEstimate.customWork.workSections.find(sec => sec.id === id);
     },
-    getIsExteriorActive(state) {
-      return state.sectionActiveBool.isExteriorActive;
-    },
-    getIsInteriorActive(state) {
-      return state.sectionActiveBool.isInteriorActive;
-    },
-    getIsPaymentActive(state) {
-      return state.sectionActiveBool.isPaymentActive;
-    },
-    getIsPersonalInformationActive(state) {
-      return state.sectionActiveBool.isPersonalInformationActive;
-    },
-    getIsWorkOptionsActive(state) {
-      return state.sectionActiveBool.isWorkOptionsActive;
+    
+    // Exterior Getters
+    getExteriorSection: (state) => (id) => {
+      return state.customerEstimate.exterior.workSections.find(sec => sec.id === id);
     },
 
-    // Customer Estimate Getters
+    // Interior Getters
+    getInteriorSection: (state) => (id) => {
+      return state.customerEstimate.interior.workSections.find(sec => sec.id === id);
+    },
+    
+    // Customer Personal Information Getters
     getCoApplicantName(state) {
       return state.customerEstimate.personalInformation.coApplicantName;
     },
@@ -108,38 +114,89 @@ export default new Vuex.Store({
     },
     getPhone(state) {
       return state.customerEstimate.personalInformation.phone;
-    }
-  },
-  mutations: {
-    // Sections Setters
-    toggleAllSectionsOff(state) {
-      state.sectionActiveBool.isAdditionalWorkActive = false;
-      state.sectionActiveBool.isExteriorActive = false;
-      state.sectionActiveBool.isInteriorActive = false;
-      state.sectionActiveBool.isPaymentActive = false;
-      state.sectionActiveBool.isPersonalInformationActive = false;
-      state.sectionActiveBool.isWorkOptionsActive = false;
-    },
-    toggleIsAdditionalWorkActiveOn(state) {
-      state.sectionActiveBool.isAdditionalWorkActive = true;
-    },
-    toggleIsExteriorActiveOn(state) {
-      state.sectionActiveBool.isExteriorActive = true;
-    },
-    toggleIsInteriorActiveOn(state) {
-      state.sectionActiveBool.isInteriorActive = true;
-    },
-    toggleIsPaymentActiveOn(state) {
-      state.sectionActiveBool.isPaymentActive = true;
-    },
-    toggleIsPersonalInformationActiveOn(state) {
-      state.sectionActiveBool.isPersonalInformationActive = true;
-    },
-    toggleIsWorkOptionsActiveOn(state) {
-      state.sectionActiveBool.isWorkOptionsActive = true;
     },
 
-    // Customer Estimate Setters
+    // Sections Getters
+    getIsCustomWorkActive(state) {
+      return state.sectionActiveBool.isCustomWorkActive;
+    },
+    getIsExteriorActive(state) {
+      return state.sectionActiveBool.isExteriorActive;
+    },
+    getIsInteriorActive(state) {
+      return state.sectionActiveBool.isInteriorActive;
+    },
+    getIsPaymentActive(state) {
+      return state.sectionActiveBool.isPaymentActive;
+    },
+    getIsPersonalInformationActive(state) {
+      return state.sectionActiveBool.isPersonalInformationActive;
+    },
+    getIsWorkOptionsActive(state) {
+      return state.sectionActiveBool.isWorkOptionsActive;
+    },
+
+    // Work Options Getters
+    getHasCustomWork(state) {
+      return state.workOptions.hasCustomWork;
+    },
+    getHasExterior(state) {
+      return state.workOptions.hasExterior;
+    },
+    getHasInterior(state) {
+      return state.workOptions.hasInterior;
+    },
+  },
+  mutations: {
+    // Custom Work Mutations
+    addCustomWorkSection(state, val) {
+      var newWorkSection = {
+        id: val,
+        description: "",
+        title: "",
+      }
+      state.customerEstimate.customWork.workSections[id] = newWorkSection;
+    },
+    setCustomWorkSectionDescription(state, {id, description}) {
+      state.customerEstimate.customWork.workSections[id].description = description;
+    },
+    setCustomWorkSectionTitle(state, {id, title}) {
+      state.customerEstimate.customWork.workSections[id].title = title;
+    },
+
+    // Exterior Mutations
+    addExteriorSection(state, val) {
+      var newWorkSection = {
+        id: val,
+        description: "",
+        title: "",
+      }
+      state.customerEstimate.exterior.workSections[id] = newWorkSection;
+    },
+    setExteriorSectionDescription(state, {id, description}) {
+      state.customerEstimate.exterior.workSections[id].description = description;
+    },
+    setExteriorSectionTitle(state, {id, title}) {
+      state.customerEstimate.exterior.workSections[id].title = title;
+    },
+
+    // Interior Mutations
+    addInteriorSection(state, val) {
+      var newWorkSection = {
+        id: val,
+        description: "",
+        title: "",
+      }
+      state.customerEstimate.interior.workSections[id] = newWorkSection;
+    },
+    setInteriorSectionDescription(state, {id, description}) {
+      state.customerEstimate.interior.workSections[id].description = description;
+    },
+    setInteriorSectionTitle(state, {id, title}) {
+      state.customerEstimate.interior.workSections[id].title = title;
+    },
+
+    // Customer Personal Information Setters
     setCoApplicantName(state, val) {
       state.customerEstimate.personalInformation.coApplicantName = val;
     },
@@ -185,11 +242,74 @@ export default new Vuex.Store({
     setPhone(state, val) {
       state.customerEstimate.personalInformation.phone = val;
     },
+
+    // Sections Setters
+    toggleAllSectionsOff(state) {
+      state.sectionActiveBool.isCustomWorkActive = false;
+      state.sectionActiveBool.isExteriorActive = false;
+      state.sectionActiveBool.isInteriorActive = false;
+      state.sectionActiveBool.isPaymentActive = false;
+      state.sectionActiveBool.isPersonalInformationActive = false;
+      state.sectionActiveBool.isWorkOptionsActive = false;
+    },
+    toggleIsCustomWorkActiveOn(state) {
+      state.sectionActiveBool.isCustomWorkActive = true;
+    },
+    toggleIsExteriorActiveOn(state) {
+      state.sectionActiveBool.isExteriorActive = true;
+    },
+    toggleIsInteriorActiveOn(state) {
+      state.sectionActiveBool.isInteriorActive = true;
+    },
+    toggleIsPaymentActiveOn(state) {
+      state.sectionActiveBool.isPaymentActive = true;
+    },
+    toggleIsPersonalInformationActiveOn(state) {
+      state.sectionActiveBool.isPersonalInformationActive = true;
+    },
+    toggleIsWorkOptionsActiveOn(state) {
+      state.sectionActiveBool.isWorkOptionsActive = true;
+    },
+
+    // Work Options Setters
+    setHasCustomWork(state, val) {
+      state.workOptions.hasCustomWork = val;
+    },
+    setHasExterior(state, val) {
+      state.workOptions.hasExterior = val;
+    },
+    setHasInterior(state, val) {
+      state.workOptions.hasInterior = val;
+    },
   },
   actions: {
-    toggleIsAdditionalWorkActiveOn({commit}) {
+    // Work Section Actions
+    setWorkSectionDescription({commit}, {workType, id, description}) {
+      if (workType === "customWork") {
+        commit('setCustomWorkSectionDescription', {id, description});
+      }
+      else if (workType === "exterior") {
+        commit('setExteriorSectionDescription', {id, description});
+      }
+      else if (workType === "interior") {
+        commit('setInteriorSectionDescription', {id, description});
+      }
+    },
+    setWorkSectionTitle({commit}, {workType, id, title}) {
+      if (workType === "customWork") {
+        commit('setCustomWorkSectionTitle', {id, title});
+      }
+      else if (workType === "exterior") {
+        commit('setExteriorSectionTitle', {id, title});
+      }
+      else if (workType === "interior") {
+        commit('setInteriorSectionTitle', {id, title});
+      }
+    },
+    
+    toggleIsCustomWorkActiveOn({commit}) {
       commit('toggleAllSectionsOff');
-      commit('toggleIsAdditionalWorkActiveOn');
+      commit('toggleIsCustomWorkActiveOn');
     },
     toggleIsExteriorActiveOn({commit}) {
       commit('toggleAllSectionsOff');

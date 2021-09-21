@@ -14,7 +14,22 @@
               Describe all Exterior Work needed
             </v-card-subtitle>
             <v-card-actions>
-              <v-btn color="orange lighten-2" text> Add Exterior Work </v-btn>
+              <v-btn
+                v-if="!hasExterior()"
+                color="orange lighten-2"
+                text
+                @click="addExterior()"
+              >
+                Add Exterior Work
+              </v-btn>
+              <v-btn
+                v-else
+                color="orange lighten-2"
+                text
+                @click="editExterior()"
+              >
+                Edit Exterior Work
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -30,7 +45,22 @@
               Describe all Interior Work needed
             </v-card-subtitle>
             <v-card-actions>
-              <v-btn color="orange lighten-2" text> Add Interior Work </v-btn>
+              <v-btn
+                v-if="!hasInterior()"
+                color="orange lighten-2"
+                text
+                @click="addInterior()"
+              >
+                Add Interior Work
+              </v-btn>
+              <v-btn
+                v-else
+                color="orange lighten-2"
+                text
+                @click="editInterior()"
+              >
+                Edit Interior Work
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -41,12 +71,25 @@
               height="200px"
             ></v-img>
 
-            <v-card-title> Additional Work </v-card-title>
-            <v-card-subtitle>
-              Describe all Additional Work needed
-            </v-card-subtitle>
+            <v-card-title> Custom Work </v-card-title>
+            <v-card-subtitle> Describe all Custom Work needed </v-card-subtitle>
             <v-card-actions>
-              <v-btn color="orange lighten-2" text> Add Additional Work </v-btn>
+              <v-btn
+                v-if="!hasCustomWork()"
+                color="orange lighten-2"
+                text
+                @click="addCustomWork()"
+              >
+                Add Custom Work
+              </v-btn>
+              <v-btn
+                v-else
+                color="orange lighten-2"
+                text
+                @click="editCustomWork()"
+              >
+                Edit Custom Work
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -54,3 +97,50 @@
     </v-container>
   </v-sheet>
 </template>
+
+<script>
+import { mapActions, mapGetters, mapMutations } from "vuex";
+export default {
+  methods: {
+    ...mapGetters({
+      hasCustomWork: "getHasCustomWork",
+      hasExterior: "getHasExterior",
+      hasInterior: "getHasInterior",
+    }),
+    ...mapMutations({
+      setHasCustomWork: "setHasCustomWork",
+      setHasExterior: "setHasExterior",
+      setHasInterior: "setHasInterior",
+    }),
+    ...mapActions({
+      toggleIsCustomWorkActiveOn: "toggleIsCustomWorkActiveOn",
+      toggleIsExteriorActiveOn: "toggleIsExteriorActiveOn",
+      toggleIsInteriorActiveOn: "toggleIsInteriorActiveOn",
+      toggleIsPaymentActiveOn: "toggleIsPaymentActiveOn",
+      toggleIsPersonalInformationActiveOn:
+        "toggleIsPersonalInformationActiveOn",
+    }),
+    addCustomWork() {
+      this.setHasCustomWork(true);
+      this.toggleIsCustomWorkActiveOn();
+    },
+    addExterior() {
+      this.setHasExterior(true);
+      this.toggleIsExteriorActiveOn();
+    },
+    addInterior() {
+      this.setHasInterior(true);
+      this.toggleIsInteriorActiveOn();
+    },
+    editCustomWork() {
+      this.toggleIsCustomWorkActiveOn();
+    },
+    editExterior() {
+      this.toggleIsExteriorActiveOn();
+    },
+    editInterior() {
+      this.toggleIsInteriorActiveOn();
+    },
+  },
+};
+</script>
