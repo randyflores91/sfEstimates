@@ -108,6 +108,9 @@ export default {
       hasInterior: "getHasInterior",
     }),
     ...mapMutations({
+      addCustomWorkSection: "addCustomWorkSection",
+      addExteriorSection: "addExteriorSection",
+      addInteriorSection: "addInteriorSection",
       setHasCustomWork: "setHasCustomWork",
       setHasExterior: "setHasExterior",
       setHasInterior: "setHasInterior",
@@ -122,14 +125,17 @@ export default {
     }),
     addCustomWork() {
       this.setHasCustomWork(true);
+      this.addCustomWorkSection({ id: this.$uuid.v4() });
       this.toggleIsCustomWorkActiveOn();
     },
     addExterior() {
       this.setHasExterior(true);
+      this.addExteriorSection({ id: this.$uuid.v4() });
       this.toggleIsExteriorActiveOn();
     },
     addInterior() {
       this.setHasInterior(true);
+      this.addInteriorSection({ id: this.$uuid.v4() });
       this.toggleIsInteriorActiveOn();
     },
     editCustomWork() {

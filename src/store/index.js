@@ -58,15 +58,25 @@ export default new Vuex.Store({
     getCustomWorkSection: (state) => (id) => {
       return state.customerEstimate.customWork.workSections.find(sec => sec.id === id);
     },
+    getCustomWorkSections(state) {
+      return state.customerEstimate.customWork.workSections;
+    },
     
     // Exterior Getters
     getExteriorSection: (state) => (id) => {
       return state.customerEstimate.exterior.workSections.find(sec => sec.id === id);
     },
+    getExteriorSections(state) {
+      console.log("Getting Sections", state.customerEstimate.exterior.workSections);
+      return state.customerEstimate.exterior.workSections;
+    },
 
     // Interior Getters
     getInteriorSection: (state) => (id) => {
       return state.customerEstimate.interior.workSections.find(sec => sec.id === id);
+    },
+    getInteriorSections(state) {
+      return state.customerEstimate.interior.workSections;
     },
     
     // Customer Personal Information Getters
@@ -149,9 +159,9 @@ export default new Vuex.Store({
   },
   mutations: {
     // Custom Work Mutations
-    addCustomWorkSection(state, val) {
+    addCustomWorkSection(state, {id}) {
       var newWorkSection = {
-        id: val,
+        id: id,
         description: "",
         title: "",
       }
@@ -165,9 +175,9 @@ export default new Vuex.Store({
     },
 
     // Exterior Mutations
-    addExteriorSection(state, val) {
+    addExteriorSection(state, {id}) {
       var newWorkSection = {
-        id: val,
+        id: id,
         description: "",
         title: "",
       }
@@ -181,9 +191,9 @@ export default new Vuex.Store({
     },
 
     // Interior Mutations
-    addInteriorSection(state, val) {
+    addInteriorSection(state, {id}) {
       var newWorkSection = {
-        id: val,
+        id: id,
         description: "",
         title: "",
       }

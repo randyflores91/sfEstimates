@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col>
-        <v-text-field v-model="title" :label="titleLabel()"></v-text-field>
+        <v-text-field v-model="title" :label="titleLabel"></v-text-field>
       </v-col>
     </v-row>
     <v-row>
@@ -22,19 +22,21 @@ export default {
     descriptionProp: String,
     workTypeProp: String,
   },
-  data: () => ({
-    id: idProp,
-    title: titleProp,
-    description: descriptionProp,
-    workType: workTypeProp,
-  }),
+  data: function () {
+    return {
+      id: this.idProp,
+      title: this.titleProp,
+      description: this.descriptionProp,
+      workType: this.workTypeProp,
+    };
+  },
   computed: {
     titleLabel() {
-      if (workType === "customWork") {
+      if (this.workType === "customWork") {
         return "Work Title";
-      } else if (workType === "exterior") {
+      } else if (this.workType === "exterior") {
         return "Exterior Work Title";
-      } else if (workType === "interior") {
+      } else if (this.workType === "interior") {
         return "Room/Interior Work Title";
       }
     },
@@ -46,11 +48,19 @@ export default {
     }),
   },
   watch: {
-    description: function (newVal) {
-      this.setWorkSectionDescription({ workType, id, description });
+    description: function () {
+      this.setWorkSectionDescription({
+        workType: this.workTypeProp,
+        id: this.id,
+        description: this.description,
+      });
     },
-    title: function (newVal) {
-      this.setWorkSectionTitle({ workType, id, title });
+    title: function () {
+      this.setWorkSectionTitle({
+        workType: this.workTypeProp,
+        id: this.id,
+        title: this.title,
+      });
     },
   },
 };

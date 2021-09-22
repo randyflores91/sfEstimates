@@ -13,6 +13,15 @@
           <template v-if="isWorkOptionsActive">
             <work-options />
           </template>
+          <template v-if="isExteriorActive">
+            <exterior-work />
+          </template>
+          <template v-if="isInteriorActive">
+            <interior-work />
+          </template>
+          <template v-if="isCustomWorkActive">
+            <custom-work />
+          </template>
         </v-col>
       </v-row>
     </v-container>
@@ -22,6 +31,9 @@
 <script>
 import CustomerEstimateSteps from "../components/CustomerEstimateSteps.vue";
 import CustomerPersonalInformation from "../components/CustomerPersonalInformation.vue";
+import CustomWork from "../components/CustomWork.vue";
+import ExteriorWork from "../components/ExteriorWork.vue";
+import InteriorWork from "../components/InteriorWork.vue";
 import WorkOptions from "../components/WorkOptions.vue";
 import { mapGetters } from "vuex";
 
@@ -30,6 +42,9 @@ export default {
   components: {
     CustomerEstimateSteps,
     CustomerPersonalInformation,
+    CustomWork,
+    ExteriorWork,
+    InteriorWork,
     WorkOptions,
   },
   computed: {
