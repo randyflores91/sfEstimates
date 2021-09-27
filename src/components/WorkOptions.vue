@@ -125,17 +125,17 @@ export default {
     }),
     addCustomWork() {
       this.setHasCustomWork(true);
-      this.addCustomWorkSection({ id: this.$uuid.v4() });
+      this.addCustomWorkSection();
       this.toggleIsCustomWorkActiveOn();
     },
     addExterior() {
       this.setHasExterior(true);
-      this.addExteriorSection({ id: this.$uuid.v4() });
+      this.addExteriorSection();
       this.toggleIsExteriorActiveOn();
     },
     addInterior() {
       this.setHasInterior(true);
-      this.addInteriorSection({ id: this.$uuid.v4() });
+      this.addInteriorSection();
       this.toggleIsInteriorActiveOn();
     },
     editCustomWork() {

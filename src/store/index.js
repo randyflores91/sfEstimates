@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { uuid } from 'vue-uuid';
 
 Vue.use(Vuex)
 
@@ -159,51 +160,63 @@ export default new Vuex.Store({
   },
   mutations: {
     // Custom Work Mutations
-    addCustomWorkSection(state, {id}) {
+    addCustomWorkSection(state) {
+      var id = uuid.v4();
       var newWorkSection = {
         id: id,
         description: "",
         title: "",
       }
-      state.customerEstimate.customWork.workSections[id] = newWorkSection;
+      state.customerEstimate.customWork.workSections.push(newWorkSection);
+    },
+    deleteCustomWorkSection(state, {id}) {
+      state.customerEstimate.customWork.workSections = state.customerEstimate.customWork.workSections.filter(section => section.id != id);
     },
     setCustomWorkSectionDescription(state, {id, description}) {
-      state.customerEstimate.customWork.workSections[id].description = description;
+      state.customerEstimate.customWork.workSections.find(section => section.id === id).description = description;
     },
     setCustomWorkSectionTitle(state, {id, title}) {
-      state.customerEstimate.customWork.workSections[id].title = title;
+      state.customerEstimate.customWork.workSections.find(section => section.id === id).title = title;
     },
 
     // Exterior Mutations
-    addExteriorSection(state, {id}) {
+    addExteriorSection(state) {
+      var id = uuid.v4();
       var newWorkSection = {
         id: id,
         description: "",
         title: "",
       }
-      state.customerEstimate.exterior.workSections[id] = newWorkSection;
+      state.customerEstimate.exterior.workSections.push(newWorkSection);
+    },
+    deleteExteriorSection(state, {id}) {
+      state.customerEstimate.exterior.workSections = state.customerEstimate.exterior.workSections.filter(section => section.id != id);
     },
     setExteriorSectionDescription(state, {id, description}) {
-      state.customerEstimate.exterior.workSections[id].description = description;
+      state.customerEstimate.exterior.workSections.find(section => section.id === id).description = description;
     },
     setExteriorSectionTitle(state, {id, title}) {
-      state.customerEstimate.exterior.workSections[id].title = title;
+      state.customerEstimate.exterior.workSections.find(section => section.id === id).title = title;
     },
 
     // Interior Mutations
-    addInteriorSection(state, {id}) {
+    addInteriorSection(state) {
+      var id = uuid.v4();
       var newWorkSection = {
         id: id,
         description: "",
         title: "",
       }
-      state.customerEstimate.interior.workSections[id] = newWorkSection;
+      state.customerEstimate.interior.workSections.push(newWorkSection);
+    },
+    deleteInteriorSection(state, {id}) {
+      state.customerEstimate.interior.workSections = state.customerEstimate.interior.workSections.filter(section => section.id != id);
     },
     setInteriorSectionDescription(state, {id, description}) {
-      state.customerEstimate.interior.workSections[id].description = description;
+      state.customerEstimate.interior.workSections.find(section => section.id === id).description = description;
     },
     setInteriorSectionTitle(state, {id, title}) {
-      state.customerEstimate.interior.workSections[id].title = title;
+      state.customerEstimate.interior.workSections.find(section => section.id === id).title = title;
     },
 
     // Customer Personal Information Setters
@@ -294,6 +307,28 @@ export default new Vuex.Store({
   },
   actions: {
     // Work Section Actions
+    deleteWorkSection({commit, getters}, {workType, id}) {
+      console.log('Work Type', workType);
+      console.log('Id', id);
+      if (workType === "customWork") {
+        commit('deleteCustomWorkSection', {id});
+        if (getters.getCustomWorkSections.length === 0) {
+          commit('addCustomWorkSection');
+        }
+      }
+      else if (workType === "exterior") {
+        commit('deleteExteriorSection', {id});
+        if (getters.getExteriorSections.length === 0) {
+          commit('addExteriorSection');
+        }
+      }
+      else if (workType === "interior") {
+        commit('deleteInteriorSection', {id});
+        if (getters.getInteriorSections.length === 0) {
+          commit('addInteriorSection');
+        }
+      }
+    },
     setWorkSectionDescription({commit}, {workType, id, description}) {
       if (workType === "customWork") {
         commit('setCustomWorkSectionDescription', {id, description});
@@ -306,6 +341,7 @@ export default new Vuex.Store({
       }
     },
     setWorkSectionTitle({commit}, {workType, id, title}) {
+      console.log("title", title);
       if (workType === "customWork") {
         commit('setCustomWorkSectionTitle', {id, title});
       }
