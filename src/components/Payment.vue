@@ -1,29 +1,18 @@
 <template>
-  <div class="my-5 pl-2">
-    <v-row>
-      <v-col cols="5">
-        <v-text-field
-          v-model="total"
-          label="Payment Total"
-          prefix="$"
-          type="number"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="1">
-        <v-btn icon color="red" @click="deleteWorkTotal({ workType })">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-  </div>
+  <v-sheet rounded="lg">
+    <p class="text-h4 pa-3 mb-2">Payment</p>
+    <v-container>
+      <v-radio-group v-model="column" column>
+        <v-radio :label="GeneratedTotalPayments" value="radio-1"></v-radio>
+        <v-radio label="Custom Payment" value="radio-2"></v-radio>
+      </v-radio-group>
+    </v-container>
+  </v-sheet>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 export default {
-  props: {
-    workTypeProp: String,
-  },
   data: function () {
     return {
       total: 0,

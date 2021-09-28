@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="my-3 pl-5">
+    <v-card class="mt-2 mb-9 pl-5">
       <v-row>
         <v-col cols="11">
           <v-text-field v-model="title" :label="titleLabel"></v-text-field>

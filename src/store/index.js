@@ -8,16 +8,19 @@ export default new Vuex.Store({
   state: {
     customerEstimate: {
       customWork: {
+        hasCustomTotal: false,
+        total: 0,
         workSections: [],
-        customWorkPayment: 0,
       },
       exterior: {
+        hasCustomTotal: false,
+        total: 0,
         workSections: [],
-        exteriorPayment: 0,
       },
       interior: {
+        hasCustomTotal: false,
+        total: 0,
         workSections: [],
-        interiorPayment: 0,
       },
       personalInformation: {
         coApplicantName: "",
@@ -56,6 +59,12 @@ export default new Vuex.Store({
   },
   getters: {
     // Custom Work Getters
+    getCustomWorkHasCustomTotal(state) {
+      return state.customerEstimate.customWork.hasCustomTotal;
+    },
+    getCustomWorkTotal(state) {
+      return state.customerEstimate.customWork.total;
+    },
     getCustomWorkSection: (state) => (id) => {
       return state.customerEstimate.customWork.workSections.find(sec => sec.id === id);
     },
@@ -64,15 +73,26 @@ export default new Vuex.Store({
     },
     
     // Exterior Getters
+    getExteriorHasCustomTotal(state) {
+      return state.customerEstimate.exterior.hasCustomTotal;
+    },
+    getExteriorTotal(state) {
+      return state.customerEstimate.exterior.total;
+    },
     getExteriorSection: (state) => (id) => {
       return state.customerEstimate.exterior.workSections.find(sec => sec.id === id);
     },
     getExteriorSections(state) {
-      console.log("Getting Sections", state.customerEstimate.exterior.workSections);
       return state.customerEstimate.exterior.workSections;
     },
 
     // Interior Getters
+    getInteriorHasCustomTotal(state) {
+      return state.customerEstimate.interior.hasCustomTotal;
+    },
+    getInteriorTotal(state) {
+      return state.customerEstimate.interior.total;
+    },
     getInteriorSection: (state) => (id) => {
       return state.customerEstimate.interior.workSections.find(sec => sec.id === id);
     },
@@ -172,11 +192,17 @@ export default new Vuex.Store({
     deleteCustomWorkSection(state, {id}) {
       state.customerEstimate.customWork.workSections = state.customerEstimate.customWork.workSections.filter(section => section.id != id);
     },
+    setCustomWorkHasCustomTotal(state, val) {
+      state.customerEstimate.customWork.hasCustomTotal = val;
+    },
     setCustomWorkSectionDescription(state, {id, description}) {
       state.customerEstimate.customWork.workSections.find(section => section.id === id).description = description;
     },
     setCustomWorkSectionTitle(state, {id, title}) {
       state.customerEstimate.customWork.workSections.find(section => section.id === id).title = title;
+    },
+    setCustomWorkTotal(state, val) {
+      state.customerEstimate.customWork.total = val;
     },
 
     // Exterior Mutations
@@ -192,11 +218,17 @@ export default new Vuex.Store({
     deleteExteriorSection(state, {id}) {
       state.customerEstimate.exterior.workSections = state.customerEstimate.exterior.workSections.filter(section => section.id != id);
     },
+    setExteriorHasCustomTotal(state, val) {
+      state.customerEstimate.exterior.hasCustomTotal = val;
+    },
     setExteriorSectionDescription(state, {id, description}) {
       state.customerEstimate.exterior.workSections.find(section => section.id === id).description = description;
     },
     setExteriorSectionTitle(state, {id, title}) {
       state.customerEstimate.exterior.workSections.find(section => section.id === id).title = title;
+    },
+    setExteriorTotal(state, val) {
+      state.customerEstimate.exterior.total = val;
     },
 
     // Interior Mutations
@@ -212,11 +244,17 @@ export default new Vuex.Store({
     deleteInteriorSection(state, {id}) {
       state.customerEstimate.interior.workSections = state.customerEstimate.interior.workSections.filter(section => section.id != id);
     },
+    setInteriorHasCustomTotal(state, val) {
+      state.customerEstimate.interior.hasCustomTotal = val;
+    },
     setInteriorSectionDescription(state, {id, description}) {
       state.customerEstimate.interior.workSections.find(section => section.id === id).description = description;
     },
     setInteriorSectionTitle(state, {id, title}) {
       state.customerEstimate.interior.workSections.find(section => section.id === id).title = title;
+    },
+    setInteriorTotal(state, val) {
+      state.customerEstimate.interior.total = val;
     },
 
     // Customer Personal Information Setters
@@ -307,9 +345,18 @@ export default new Vuex.Store({
   },
   actions: {
     // Work Section Actions
+    addWorkTotal({commit}, {workType}) {
+      if (workType === "customWork") {
+        commit('setCustomWorkHasCustomTotal', true);
+      }
+      else if (workType === "exterior") {
+        commit('setExteriorHasCustomTotal', true);
+      }
+      else if (workType === "interior") {
+        commit('setInteriorHasCustomTotal', true);
+      }
+    },
     deleteWorkSection({commit, getters}, {workType, id}) {
-      console.log('Work Type', workType);
-      console.log('Id', id);
       if (workType === "customWork") {
         commit('deleteCustomWorkSection', {id});
         if (getters.getCustomWorkSections.length === 0) {
@@ -329,6 +376,17 @@ export default new Vuex.Store({
         }
       }
     },
+    deleteWorkTotal({commit}, {workType}) {
+      if (workType === "customWork") {
+        commit('setCustomWorkHasCustomTotal', false);
+      }
+      else if (workType === "exterior") {
+        commit('setExteriorHasCustomTotal', false);
+      }
+      else if (workType === "interior") {
+        commit('setInteriorHasCustomTotal', false);
+      }
+    },
     setWorkSectionDescription({commit}, {workType, id, description}) {
       if (workType === "customWork") {
         commit('setCustomWorkSectionDescription', {id, description});
@@ -341,7 +399,6 @@ export default new Vuex.Store({
       }
     },
     setWorkSectionTitle({commit}, {workType, id, title}) {
-      console.log("title", title);
       if (workType === "customWork") {
         commit('setCustomWorkSectionTitle', {id, title});
       }
@@ -350,6 +407,17 @@ export default new Vuex.Store({
       }
       else if (workType === "interior") {
         commit('setInteriorSectionTitle', {id, title});
+      }
+    },
+    setWorkTotal({commit}, {workType, total}) {
+      if (workType === "customWork") {
+        commit('setCustomWorkTotal', total);
+      }
+      else if (workType === "exterior") {
+        commit('setExteriorTotal', total);
+      }
+      else if (workType === "interior") {
+        commit('setInteriorTotal', total);
       }
     },
     

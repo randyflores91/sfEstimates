@@ -3,7 +3,7 @@
     <p class="text-h4 pa-3 mb-2">Exterior Work</p>
     <v-container>
       <work-and-description
-        v-for="section in sections"
+        v-for="section in exteriorSections"
         :key="section.id"
         :idProp="section.id"
         :titleProp="section.title"
@@ -12,9 +12,27 @@
         class="mb-5"
       >
       </work-and-description>
+      <custom-payment
+        v-if="exteriorHasCustomTotal"
+        :workTypeProp="'exterior'"
+      ></custom-payment>
       <v-row>
         <v-col align="right" class="mt-5 mr-3">
-          <v-btn color="red darken-4" outlined @click="addExteriorSection()">
+          <v-btn
+            color="red darken-4"
+            outlined
+            class="additionButton"
+            @click="setExteriorHasCustomTotal(true)"
+            :disabled="exteriorHasCustomTotal"
+          >
+            Add Custom Payment +</v-btn
+          >
+          <v-btn
+            color="red darken-4"
+            outlined
+            class="additionButton"
+            @click="addExteriorSection()"
+          >
             Add Additional Work +</v-btn
           >
         </v-col>
@@ -25,7 +43,7 @@
             color="red darken-4"
             class="transitionButton"
             dark
-            @click="addExteriorSection()"
+            @click="toggleIsWorkOptionsActiveOn"
           >
             Back To Work Selections
           </v-btn>
@@ -33,7 +51,7 @@
             color="red darken-4"
             class="transitionButton"
             dark
-            @click="addExteriorSection()"
+            @click="toggleIsPaymentActiveOn"
           >
             Go To Payment</v-btn
           >
@@ -44,24 +62,29 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import CustomPayment from "./WorkOptions/CustomPayment.vue";
 import WorkAndDescription from "./WorkOptions/WorkAndDescription.vue";
+
 export default {
   components: {
+    CustomPayment,
     WorkAndDescription,
   },
   computed: {
-    sections() {
-      let keys = Object.keys(this.exteriorSections());
-      return keys.map((key) => this.exteriorSections()[key]);
-    },
-  },
-  methods: {
     ...mapGetters({
+      exteriorHasCustomTotal: "getExteriorHasCustomTotal",
       exteriorSections: "getExteriorSections",
     }),
+  },
+  methods: {
     ...mapMutations({
       addExteriorSection: "addExteriorSection",
+      setExteriorHasCustomTotal: "setExteriorHasCustomTotal",
+    }),
+    ...mapActions({
+      toggleIsPaymentActiveOn: "toggleIsPaymentActiveOn",
+      toggleIsWorkOptionsActiveOn: "toggleIsWorkOptionsActiveOn",
     }),
   },
 };
@@ -70,6 +93,10 @@ export default {
 <style scoped>
 .transitionButton {
   width: 25%;
+  margin-left: 35px;
+}
+
+.additionButton {
   margin-left: 35px;
 }
 </style>
