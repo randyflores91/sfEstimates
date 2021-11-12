@@ -3,7 +3,7 @@
     <p class="text-h4 pa-3 mb-2">Payment</p>
     <v-container>
       <v-radio-group v-model="column" column>
-        <v-radio :label="GeneratedTotalPayments" value="radio-1"></v-radio>
+        <v-radio label="Generated Total Payment" value="radio-1"></v-radio>
         <v-radio label="Custom Payment" value="radio-2"></v-radio>
       </v-radio-group>
     </v-container>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   data: function () {
     return {
@@ -19,12 +19,13 @@ export default {
       workType: this.workTypeProp,
     };
   },
-  methods: {
-    ...mapActions({
-      setWorkTotal: "setWorkTotal",
-      deleteWorkTotal: "deleteWorkTotal",
+  computed: {
+    ...mapGetters({
+      interiorHasCustomTotal: "getInteriorHasCustomTotal",
+      interiorSections: "getInteriorSections",
     }),
   },
+  methods: {},
   watch: {
     total: function () {
       this.setWorkTotal({

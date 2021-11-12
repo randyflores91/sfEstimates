@@ -22,6 +22,9 @@
           <template v-if="isCustomWorkActive">
             <custom-work />
           </template>
+          <template v-if="isPaymentActive">
+            <payment />
+          </template>
         </v-col>
       </v-row>
     </v-container>
@@ -34,6 +37,7 @@ import CustomerPersonalInformation from "../components/CustomerPersonalInformati
 import CustomWork from "../components/CustomWork.vue";
 import ExteriorWork from "../components/ExteriorWork.vue";
 import InteriorWork from "../components/InteriorWork.vue";
+import Payment from "../components/Payment.vue";
 import WorkOptions from "../components/WorkOptions.vue";
 import { mapGetters } from "vuex";
 
@@ -45,6 +49,7 @@ export default {
     CustomWork,
     ExteriorWork,
     InteriorWork,
+    Payment,
     WorkOptions,
   },
   computed: {
