@@ -40,7 +40,10 @@ export default new Vuex.Store({
         phone: ""
       },
       totalPayment: {
-
+        customPayment: 0,
+        finalPayment: 0,
+        generatedPayment: 0,
+        hasGeneratedPayment: false,
       }
     },
     sectionActiveBool: {
@@ -58,6 +61,20 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    // Payment Options Getters
+    getCustomPayment(state) {
+      return state.customerEstimate.totalPayment.customPayment;
+    },
+    getFinalPayment(state) {
+      return state.customerEstimate.totalPayment.finalPayment;
+    },
+    getGeneratedPayment(state) {
+      return state.customerEstimate.totalPayment.generatedPayment;
+    },
+    getHasGeneratedPayment(state) {
+      return state.customerEstimate.totalPayment.hasGeneratedPayment;
+    },
+
     // Custom Work Getters
     getCustomWorkHasCustomTotal(state) {
       return state.customerEstimate.customWork.hasCustomTotal;

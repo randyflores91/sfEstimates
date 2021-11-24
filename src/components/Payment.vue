@@ -2,7 +2,7 @@
   <v-sheet rounded="lg">
     <p class="text-h4 pa-3 mb-2">Payment</p>
     <v-container>
-      <v-radio-group v-model="column" column>
+      <v-radio-group v-model="total" column>
         <v-radio label="Generated Total Payment" value="radio-1"></v-radio>
         <v-radio label="Custom Payment" value="radio-2"></v-radio>
       </v-radio-group>
